@@ -1,5 +1,5 @@
 ###############################################################################
-#  Copyright (c) 2014-2019 libbitcoin-consensus developers (see COPYING).
+#  Copyright (c) 2014-2020 libbitcoin-consensus developers (see COPYING).
 #
 #         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
 #
@@ -36,19 +36,20 @@ src_libbitcoin_consensus_la_CPPFLAGS = -I${srcdir}/include -I${srcdir}/src -I${s
 src_libbitcoin_consensus_la_LIBADD = ${secp256k1_LIBS}
 src_libbitcoin_consensus_la_SOURCES = \
     src/clone/amount.h \
+    src/clone/attributes.h \
     src/clone/hash.cpp \
     src/clone/hash.h \
     src/clone/prevector.h \
     src/clone/pubkey.cpp \
     src/clone/pubkey.h \
     src/clone/serialize.h \
+    src/clone/span.h \
     src/clone/tinyformat.h \
     src/clone/uint256.cpp \
     src/clone/uint256.h \
-    src/clone/utilstrencodings.cpp \
-    src/clone/utilstrencodings.h \
     src/clone/version.h \
     src/clone/compat/byteswap.h \
+    src/clone/compat/cpuid.h \
     src/clone/compat/endian.h \
     src/clone/crypto/common.h \
     src/clone/crypto/hmac_sha512.cpp \
@@ -68,6 +69,9 @@ src_libbitcoin_consensus_la_SOURCES = \
     src/clone/script/script.cpp \
     src/clone/script/script.h \
     src/clone/script/script_error.h \
+    src/clone/util/strencodings.cpp \
+    src/clone/util/strencodings.h \
+    src/clone/util/string.h \
     src/consensus/consensus.cpp \
     src/consensus/consensus.hpp
 

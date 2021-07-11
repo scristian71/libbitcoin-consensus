@@ -1,5 +1,5 @@
 ###############################################################################
-#  Copyright (c) 2014-2019 libbitcoin-consensus developers (see COPYING).
+#  Copyright (c) 2014-2020 libbitcoin-consensus developers (see COPYING).
 #
 #         GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY
 #
@@ -60,9 +60,17 @@ add_compile_options( "-Wno-missing-braces" )
 # Ignore comments within comments or commenting of backslash extended lines.
 add_compile_options( "-Wno-comment" )
 
+# Suppress frequent warning in cloned files.
+add_compile_options( "-Wno-unused-parameter" )
+
 # Conflict in stdlib under clang.
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     add_compile_options( "-Wno-mismatched-tags" )
+endif()
+
+# Suppress frequent warning in cloned files.
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    add_compile_options( "-Wno-c++17-extensions" )
 endif()
 
 # Implement -Dpkgconfigdir and output ${pkgconfigdir}.
@@ -305,7 +313,7 @@ endif()
 
 # Find boost
 #------------------------------------------------------------------------------
-find_package( Boost 1.62.0 REQUIRED COMPONENTS
+find_package( Boost 1.72.0 REQUIRED COMPONENTS
     unit_test_framework )
 
 set( boost_unit_test_framework_LIBS "-lboost_unit_test_framework" )
@@ -321,7 +329,7 @@ set( boost_LDFLAGS "-L${Boost_LIBRARY_DIR}" )
 
 # Find secp256k1
 #------------------------------------------------------------------------------
-find_package( Secp256K1 0.0.1 REQUIRED )
+find_package( Secp256K1 0.1.0.19 REQUIRED )
 
 # Define project common includes directories
 #------------------------------------------------------------------------------
@@ -336,22 +344,22 @@ endif()
 # Define project common library directories
 #------------------------------------------------------------------------------
 if (BUILD_SHARED_LIBS)
-    link_directories( 
+    link_directories(
         ${secp256k1_LIBRARY_DIRS} )
 else()
-    link_directories( 
+    link_directories(
         ${secp256k1_STATIC_LIBRARY_DIRS} )
 endif()
 
 # Define project common libraries/linker flags.
 #------------------------------------------------------------------------------
 if (BUILD_SHARED_LIBS)
-    link_libraries( 
+    link_libraries(
         "-fstack-protector"
         "-fstack-protector-all"
         ${secp256k1_LIBRARIES} )
 else()
-    link_libraries( 
+    link_libraries(
         "-fstack-protector"
         "-fstack-protector-all"
         ${secp256k1_STATIC_LIBRARIES} )
@@ -361,19 +369,20 @@ endif()
 #------------------------------------------------------------------------------
 add_library( ${CANONICAL_LIB_NAME}
     "../../src/clone/amount.h"
+    "../../src/clone/attributes.h"
     "../../src/clone/hash.cpp"
     "../../src/clone/hash.h"
     "../../src/clone/prevector.h"
     "../../src/clone/pubkey.cpp"
     "../../src/clone/pubkey.h"
     "../../src/clone/serialize.h"
+    "../../src/clone/span.h"
     "../../src/clone/tinyformat.h"
     "../../src/clone/uint256.cpp"
     "../../src/clone/uint256.h"
-    "../../src/clone/utilstrencodings.cpp"
-    "../../src/clone/utilstrencodings.h"
     "../../src/clone/version.h"
     "../../src/clone/compat/byteswap.h"
+    "../../src/clone/compat/cpuid.h"
     "../../src/clone/compat/endian.h"
     "../../src/clone/crypto/common.h"
     "../../src/clone/crypto/hmac_sha512.cpp"
@@ -393,6 +402,9 @@ add_library( ${CANONICAL_LIB_NAME}
     "../../src/clone/script/script.cpp"
     "../../src/clone/script/script.h"
     "../../src/clone/script/script_error.h"
+    "../../src/clone/util/strencodings.cpp"
+    "../../src/clone/util/strencodings.h"
+    "../../src/clone/util/string.h"
     "../../src/consensus/consensus.cpp"
     "../../src/consensus/consensus.hpp" )
 
